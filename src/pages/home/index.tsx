@@ -30,8 +30,7 @@ export const Home = () => {
                 setFilteredList(moviesFilters)
             }
             fetchData()
-
-
+            
         }
         filterListMovies(debouncedValue)
     }, [debouncedValue])
