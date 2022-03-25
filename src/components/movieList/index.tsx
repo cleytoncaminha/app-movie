@@ -1,14 +1,8 @@
 import { Link } from "react-router-dom"
-import { IMovie } from "../../interface/interface"
+import { IMovie, IMovieList } from "../../interface/interface"
 import "./movieList.css"
 
 const ImageUrl: string = "https://image.tmdb.org/t/p/w300"
-
-interface IMovieList{
-    initialList: IMovie[]
-    search: string
-    filteredList: IMovie[]
-}
 
 export const MovieList = (props:IMovieList)=>{
 

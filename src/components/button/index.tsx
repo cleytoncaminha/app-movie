@@ -1,9 +1,5 @@
+import { IButton } from "../../interface/interface"
 import "./button.css"
-
-interface IButton{
-    value: string
-    onClick: React.MouseEventHandler<HTMLButtonElement>
-}
 
 export const Button = (props:IButton) =>{
     return (

@@ -1,9 +1,6 @@
+import { IForm } from "../../interface/interface"
 import "./form.css"
 
-interface IForm{
-    value: string
-    onChange: React.ChangeEventHandler<HTMLInputElement>
-}
 
 export const Form = (props:IForm) => {
     return (
