@@ -19,7 +19,6 @@ export const MoviesDetails = () => {
         }
 
         fetchData()
-        console.log(movie)
     }, [])
 
     return (

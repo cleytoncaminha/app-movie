@@ -1,8 +1,7 @@
-.container{
+.containerMovieList{
     display: flex;
     flex-wrap:  wrap;
-    position: relative;
-    justify-content: space-around;
+    justify-content: center;
     padding: 10px;
     align-content: center;
     gap: 1.5rem;

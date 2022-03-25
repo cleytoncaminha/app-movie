@@ -7,7 +7,7 @@ const ImageUrl: string = "https://image.tmdb.org/t/p/w300"
 export const MovieList = (props:IMovieList)=>{
 
     return(
-        <div className="container">
+        <div className="containerMovieList">
                     {
                     props.search === "" ? props.initialList.map((item: IMovie, index: number) => {
                         return (
