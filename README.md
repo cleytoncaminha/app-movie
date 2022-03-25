@@ -1,6 +1,6 @@
 # Movie App
 
-esse projeto é um aplicativo de busca de filmes, ele tem como objetivo mostrar uma lista de filmes inicial com 10 páginas e também um botão de busca para encontrar seu filme favorito
+esse projeto é um aplicativo de busca de filmes, ele tem como objetivo mostrar uma lista de filmes inicial com 10 páginas e também um local de busca para encontrar seu filme favorito
 
 ## Páginas da aplicação
 
@@ -34,5 +34,5 @@ voce deve primeiro clonar o repositorio e depois realizar os outros comandos em 
 ### npm start
 
 ## Links do projeto
-
+<a href="https://app-movie-orpin.vercel.app/">Página do projeto</a>
 <a href="https://github.com/cleytoncaminha/app-movie.git">Github do projeto</a>
