@@ -9,7 +9,9 @@ import { Loading } from '../../components/loader';
 import "./home.css"
 
 export const Home = () => {
-    
+
+    const ImageUrl: string = "https://image.tmdb.org/t/p/w300"
+
     const [initialList, setInitialList] = useState<IMovie[]>([])
     const [numberPage, setNumberPage] = useState<number>(1)
     const [search, setSearch] = useState<string>("")
@@ -36,11 +38,11 @@ export const Home = () => {
 
             }
             fetchData()
-            
+
         }
-        
+
         filterListMovies(debouncedValue)
-        
+
     }, [debouncedValue])
 
 
@@ -56,22 +58,21 @@ export const Home = () => {
         fetchData()
     }, [numberPage])
 
-    
     return (
         <>
             <header>
-                    <h1 className='title'>Movie App</h1>
-                    <div className="pages"> 
-                   
-                    {numberPage > 1 ? <Button onClick={() => { setNumberPage(numberPage - 1) }} value="<" /> : <Button onClick={() => {return}} value="<"></Button>} 
-                    <h3 className='page'>PÁGINA: {numberPage} de 10</h3>
-                    {numberPage < 10 ? <Button onClick={() => { setNumberPage(numberPage + 1) }} value=">" /> : <Button onClick={() => {return}} value=">"></Button>}                 
-                    </div> 
-                     
+                <h1 className='title'>Movie App</h1>
+                <div className="pages">
+
+                    {numberPage > 1 ? <Button onClick={() => { setNumberPage(numberPage - 1) }} value="<" /> : <Button onClick={() => { return }} value="<"></Button>}
+                    <h3 className='page'>Página: {numberPage} de 10</h3>
+                    {numberPage < 10 ? <Button onClick={() => { setNumberPage(numberPage + 1) }} value=">" /> : <Button onClick={() => { return }} value=">"></Button>}
+                </div>
+
             </header>
-            <main> 
+            <main>
                 <Form onChange={handleInputChange} value={search}></Form>
-                {removeLoading === true || search === "" ? <MovieList initialList={initialList} filteredList={filteredList} search={search}></MovieList> : <Loading></Loading>}
+                {removeLoading === true || search === "" ? <MovieList initialList={initialList} filteredList={filteredList} search={search} imageUrl={ImageUrl}></MovieList> : <Loading />}
             </main>
         </>
     );

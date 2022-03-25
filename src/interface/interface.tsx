@@ -25,4 +25,15 @@ export interface IMovieList{
     initialList: IMovie[]
     search: string
     filteredList: IMovie[]
+    imageUrl: string
+}
+
+export interface IMovieFiltered {
+    filteredList: IMovie[]
+    imageUrl: string
+}
+
+export interface IMovieInitial {
+    initialList: IMovie[]
+    imageUrl: string
 }

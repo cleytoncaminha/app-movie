@@ -8,7 +8,7 @@
 .containerDetailMain{
     display: flex;
     flex-wrap: wrap;
-    color: aliceblue;
+    color: #DDE0E3;
     justify-content: space-around;
     align-content: center;
 }
@@ -26,12 +26,13 @@
 
 .contentContainer{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .buttonMovieDetail{
-    background-color: aliceblue ;
+    background-color: #DDE0E3;
     border: none;
+    font-size: 2rem;
 }
 
 .buttonMovieDetail:hover{

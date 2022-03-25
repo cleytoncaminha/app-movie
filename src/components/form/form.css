@@ -12,6 +12,7 @@ input{
     border-radius: 5px;
     font-size: 2vw;
     border: 2px solid #DDE0E3;
+    color: #DDE0E3;
 }
 
 input::placeholder {
