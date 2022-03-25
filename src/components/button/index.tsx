@@ -1,7 +1,14 @@
-export const Button = (props:any) =>{
+import "./button.css"
+
+interface IButton{
+    value: string
+    onClick: React.MouseEventHandler<HTMLButtonElement>
+}
+
+export const Button = (props:IButton) =>{
     return (
-    <div>
-        <div onClick={props.onClick}>{props.value}</div>
+    <div className="buttonContainer">
+        <button className="button" onClick={props.onClick}>{props.value}</button>
     </div>
     )
 }

@@ -6,6 +6,7 @@ import { Button } from '../../components/button';
 import { Form } from '../../components/form';
 import { MovieList } from '../../components/movieList';
 import { Loading } from '../../components/loader';
+import "./home.css"
 
 export const Home = () => {
     
@@ -29,7 +30,7 @@ export const Home = () => {
             if (search === "") return;
 
             async function fetchData() {
-                const moviesFilters: any = await searchMovies(search)
+                const moviesFilters = await searchMovies(search)
                 setFilteredList(moviesFilters)
                 setRemoveLoading(true)
 
@@ -44,9 +45,10 @@ export const Home = () => {
 
 
     useEffect(() => {
+        setRemoveLoading(false)
 
         async function fetchData() {
-            const response: any = await getMovies(numberPage)
+            const response = await getMovies(numberPage)
             setInitialList(response)
             setRemoveLoading(true)
         }
@@ -58,12 +60,18 @@ export const Home = () => {
     return (
         <div>
             <header>
-                    <Form onChange={handleInputChange} value={search}></Form>
-                    {numberPage > 1 ? <Button onClick={() => { setNumberPage(numberPage - 1) }} value="<" /> : ""}
-                    {numberPage < 6 ? <Button onClick={() => { setNumberPage(numberPage + 1) }} value=">" /> : ""}
+                    <h1 className='title'>Movie App</h1>
+                    <div className="pages"> 
+                   
+                    {numberPage > 1 ? <Button onClick={() => { setNumberPage(numberPage - 1) }} value="<" /> : <Button onClick={() => {return}} value="<"></Button>} 
+                    <h3 className='page'>PÁGINA: {numberPage} de 10</h3>
+                    {numberPage < 10 ? <Button onClick={() => { setNumberPage(numberPage + 1) }} value=">" /> : <Button onClick={() => {return}} value=">"></Button>}                 
+                    </div> 
+                     
             </header>
-            <main>
-                    {removeLoading === true || search === "" ? <MovieList initialList={initialList} filteredList={filteredList} search={search}></MovieList> : <Loading></Loading>}
+            <main> 
+                <Form onChange={handleInputChange} value={search}></Form>
+                {removeLoading === true || search === "" ? <MovieList initialList={initialList} filteredList={filteredList} search={search}></MovieList> : <Loading></Loading>}
             </main>
         </div>
     );

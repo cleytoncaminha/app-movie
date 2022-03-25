@@ -1,10 +1,17 @@
-export const Form = (props:any) => {
+import "./form.css"
+
+interface IForm{
+    value: string
+    onChange: React.ChangeEventHandler<HTMLInputElement>
+}
+
+export const Form = (props:IForm) => {
     return (
-        <div>
+        <div className="containerForm">
+
             <form>
                 <div>
-                    <label htmlFor="search">Procure seu filme favorito </label>
-                    <input type="text" name="search" id="search" onChange={props.onChange} value={props.value} />
+                    <input type="text" name="search" id="search" onChange={props.onChange} value={props.value} placeholder="Buscar filmes" />
                 </div>
             </form>
         </div>
