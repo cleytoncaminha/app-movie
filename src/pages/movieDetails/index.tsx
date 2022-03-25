@@ -25,7 +25,7 @@ export const MoviesDetails = () => {
         <div className="containerMovieDetail">
 
             {movie === undefined ? <Loading></Loading> :
-                <div>
+                <>
                     <header>
                         <h1 className="title">{movie.title}</h1>
                         <h1 className="logo">Movie App</h1>
@@ -42,7 +42,7 @@ export const MoviesDetails = () => {
                             </div>
                         </div>
                     </main>
-                </div>
+                </>
             }
         </div>
     )

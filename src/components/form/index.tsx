@@ -4,13 +4,10 @@ import "./form.css"
 
 export const Form = (props:IForm) => {
     return (
-        <div className="containerForm">
-
             <form>
-                <div>
+                <div className="containerForm">
                     <input type="text" name="search" id="search" onChange={props.onChange} value={props.value} placeholder="Buscar filmes" />
                 </div>
-            </form>
-        </div>
+            </form>     
     )
 }

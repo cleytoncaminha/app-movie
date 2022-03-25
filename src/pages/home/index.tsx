@@ -58,7 +58,7 @@ export const Home = () => {
 
     
     return (
-        <div>
+        <>
             <header>
                     <h1 className='title'>Movie App</h1>
                     <div className="pages"> 
@@ -73,6 +73,6 @@ export const Home = () => {
                 <Form onChange={handleInputChange} value={search}></Form>
                 {removeLoading === true || search === "" ? <MovieList initialList={initialList} filteredList={filteredList} search={search}></MovieList> : <Loading></Loading>}
             </main>
-        </div>
+        </>
     );
 }
