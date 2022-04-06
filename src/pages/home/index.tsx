@@ -64,15 +64,15 @@ export const Home = () => {
                 <h1 className='title'>Movie App</h1>
                 <div className="pages">
 
-                    {numberPage > 1 ? <Button onClick={() => { setNumberPage(numberPage - 1) }} value="<" /> : <Button onClick={() => { return }} value="<"></Button>}
+                    <Button onClick={() => { numberPage > 1 ? setNumberPage(numberPage - 1) : setNumberPage(numberPage) }} value="<" />
                     <h3 className='page'>Página: {numberPage} de 10</h3>
-                    {numberPage < 10 ? <Button onClick={() => { setNumberPage(numberPage + 1) }} value=">" /> : <Button onClick={() => { return }} value=">"></Button>}
+                    <Button onClick={() => { numberPage < 10 ? setNumberPage(numberPage + 1) : setNumberPage(numberPage) }} value=">" />
                 </div>
 
             </header>
             <main>
-                <Form onChange={handleInputChange} value={search}></Form>
-                {removeLoading === true || search === "" ? <MovieList initialList={initialList} filteredList={filteredList} search={search} imageUrl={ImageUrl}></MovieList> : <Loading />}
+                <Form onChange={handleInputChange} value={search} />
+                {removeLoading === true || search === "" ? <MovieList initialList={initialList} filteredList={filteredList} search={search} imageUrl={ImageUrl} /> : <Loading />}
             </main>
         </>
     );
