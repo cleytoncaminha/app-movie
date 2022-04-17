@@ -1,18 +1,22 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import useDebounce from '../../hooks/useDebounce';
 import { IMovie } from '../../interface/interface';
-import { getMovies, searchMovies } from '../../service';
+import { searchMovies } from '../../service';
 import { Button } from '../../components/button';
 import { Form } from '../../components/form';
 import { MovieList } from '../../components/movieList';
 import { Loading } from '../../components/loader';
 import "./home.css"
+import { observer, useLocalObservable } from 'mobx-react-lite';
+import { Store } from './store';
 
-export const Home = () => {
+const Home = () => {
+    const store = useLocalObservable(() => new Store());
+    
+
 
     const ImageUrl: string = "https://image.tmdb.org/t/p/w300"
 
-    const [initialList, setInitialList] = useState<IMovie[]>([])
     const [numberPage, setNumberPage] = useState<number>(1)
     const [search, setSearch] = useState<string>("")
     const [filteredList, setFilteredList] = useState<IMovie[]>([])
@@ -45,35 +49,25 @@ export const Home = () => {
 
     }, [debouncedValue])
 
-
-    useEffect(() => {
-        setRemoveLoading(false)
-
-        async function fetchData() {
-            const response = await getMovies(numberPage)
-            setInitialList(response)
-            setRemoveLoading(true)
-        }
-
-        fetchData()
-    }, [numberPage])
-
+    
     return (
         <>
             <header>
                 <h1 className='title'>Movie App</h1>
                 <div className="pages">
 
-                    <Button onClick={() => { numberPage > 1 ? setNumberPage(numberPage - 1) : setNumberPage(numberPage) }} value="<" />
-                    <h3 className='page'>Página: {numberPage} de 10</h3>
-                    <Button onClick={() => { numberPage < 10 ? setNumberPage(numberPage + 1) : setNumberPage(numberPage) }} value=">" />
+                    <Button onClick={() => { store.listShelf.page > 1 ? store.listShelf.previousPage() : setNumberPage(numberPage) }} value="<" />
+                    <h3 className='page'>Página: {store.listShelf.page} de 10</h3>
+                    <Button onClick={() => { store.listShelf.page < 10 ? store.listShelf.nextPage() : setNumberPage(numberPage) }} value=">" />
                 </div>
 
             </header>
             <main>
                 <Form onChange={handleInputChange} value={search} />
-                {removeLoading === true || search === "" ? <MovieList initialList={initialList} filteredList={filteredList} search={search} imageUrl={ImageUrl} /> : <Loading />}
+                {store.listShelf.loader.isLoading === false ? <MovieList initialList={store.listShelf} filteredList={filteredList} search={search} imageUrl={ImageUrl} /> : <Loading />}
             </main>
         </>
     );
 }
+
+export default observer(Home)

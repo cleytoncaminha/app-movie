@@ -1,3 +1,5 @@
+import { PaginatedListShelf } from "@startapp/mobx-utils"
+
  export interface IMovie {
     title: string
     poster_path: string
@@ -22,7 +24,7 @@ export interface IForm{
 }
 
 export interface IMovieList{
-    initialList: IMovie[]
+    initialList: PaginatedListShelf<IMovie>
     search: string
     filteredList: IMovie[]
     imageUrl: string
@@ -34,6 +36,6 @@ export interface IMovieFiltered {
 }
 
 export interface IMovieInitial {
-    initialList: IMovie[]
+    initialList: PaginatedListShelf<IMovie>
     imageUrl: string
 }
