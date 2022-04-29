@@ -1,11 +1,14 @@
+import { Box, Text} from "@chakra-ui/react";
+import { observer } from "mobx-react-lite";
+import * as React from "react";
 
+const Loading = () =>
+	(
+		<Box bg="#001032" h="100vh">
+			<Text color="#DDE0E3" fontSize="4xl" textAlign="center">
+				Carregando ...
+			</Text>
+		</Box>
+	);
 
-import "./loader.css"
-
-export const Loading = () => {
-    return(
-        <div className="loader">
-            <h3>Carregando ...</h3>
-        </div>
-    )
-}
+export default observer(Loading);

@@ -1,73 +1,49 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import useDebounce from '../../hooks/useDebounce';
-import { IMovie } from '../../interface/interface';
-import { searchMovies } from '../../service';
-import { Button } from '../../components/button';
-import { Form } from '../../components/form';
-import { MovieList } from '../../components/movieList';
-import { Loading } from '../../components/loader';
-import "./home.css"
-import { observer, useLocalObservable } from 'mobx-react-lite';
-import { Store } from './store';
+import * as React from "react";
+import { Box } from "@chakra-ui/react";
+import  Loading  from "../../components/loader";
+import { observer, useLocalObservable } from "mobx-react-lite";
+import { Store } from "./store";
+import  Banner  from "../../components/banner";
+import useImageColor from "use-image-color";
+import MoviesInitial from "../../components/moviesInitial";
+import NavBar from "../../components/navBar";
 
 const Home = () => {
-    const store = useLocalObservable(() => new Store());
-    
+	const ImageUrl = "https://image.tmdb.org/t/p/w300";
+
+	const store = useLocalObservable(() => new Store());
+
+	const [bgColor, setBgColor] = React.useState<string>("");
 
 
-    const ImageUrl: string = "https://image.tmdb.org/t/p/w300"
+	const { colors } = useImageColor(bgColor, { cors: true, colors: 5 });
 
-    const [numberPage, setNumberPage] = useState<number>(1)
-    const [search, setSearch] = useState<string>("")
-    const [filteredList, setFilteredList] = useState<IMovie[]>([])
-    const [removeLoading, setRemoveLoading] = useState<boolean>(false)
+	React.useEffect(()=>{
+		setBgColor(store.bannerImage.value);
+	}, [store.bannerImage.value]);
 
-    const debouncedValue = useDebounce<string>(search, 2000)
 
-    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setSearch(event.target.value)
-        setRemoveLoading(false)
-    }
+	return (
+		<>
+			{store.moviesByRated.initialLoader.isLoaded ?
+				<>
+					<header>
+						<NavBar colors={colors} search store={store} />
+					</header>
+					<main>
+						{store.search.value === "" ? <Banner bannerImage={store.bannerImage} movies={store.moviesByRated} /> : <></>}
+						<Box bg="gray.700">
+							{store.listShelf.initialLoader.isLoaded ?
+								<MoviesInitial
+									movieList={store.listShelf}
+									imageUrl={ImageUrl}
+									favorite={store.setFavorite}
+								/> : <Loading />}
+						</Box>
+					</main>
+				</> : <Loading />}
+		</>
+	);
+};
 
-    useEffect(() => {
-
-        const filterListMovies = (search: string) => {
-
-            if (search === "") return;
-
-            async function fetchData() {
-                const moviesFilters = await searchMovies(search)
-                setFilteredList(moviesFilters)
-                setRemoveLoading(true)
-
-            }
-            fetchData()
-
-        }
-
-        filterListMovies(debouncedValue)
-
-    }, [debouncedValue])
-
-    
-    return (
-        <>
-            <header>
-                <h1 className='title'>Movie App</h1>
-                <div className="pages">
-
-                    <Button onClick={() => { store.listShelf.page > 1 ? store.listShelf.previousPage() : setNumberPage(numberPage) }} value="<" />
-                    <h3 className='page'>Página: {store.listShelf.page} de 10</h3>
-                    <Button onClick={() => { store.listShelf.page < 10 ? store.listShelf.nextPage() : setNumberPage(numberPage) }} value=">" />
-                </div>
-
-            </header>
-            <main>
-                <Form onChange={handleInputChange} value={search} />
-                {store.listShelf.loader.isLoading === false ? <MovieList initialList={store.listShelf} filteredList={filteredList} search={search} imageUrl={ImageUrl} /> : <Loading />}
-            </main>
-        </>
-    );
-}
-
-export default observer(Home)
+export default observer(Home);
